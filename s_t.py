@@ -17,72 +17,89 @@ st.set_page_config(
     layout="centered"
 )
 
-# ------------------ ESTILOS ------------------
+# ------------------ ESTILOS PRO ------------------
 st.markdown("""
 <style>
-body {
-    background-color: #0F172A;
+
+/* Fondo degradado */
+.stApp {
+    background: linear-gradient(135deg, #ff4b2b, #ff416c, #7f00ff);
+    color: white;
 }
 
+/* Títulos */
 .main-title {
-    font-size: 42px;
-    font-weight: bold;
-    color: #E0E7FF;
+    font-size: 50px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 5px;
 }
 
 .subtitle {
-    font-size: 18px;
-    color: #A5B4FC;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
+/* Tarjeta tipo glass */
 .card {
-    background: #1E293B;
-    padding: 20px;
-    border-radius: 15px;
-    border-left: 5px solid #6366F1;
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+    background: rgba(255, 255, 255, 0.15);
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.3);
+    margin-top: 20px;
 }
 
+/* Botones */
 .stButton>button {
-    background-color: #6366F1;
-    color: white;
-    border-radius: 10px;
+    background: linear-gradient(90deg, #00f5a0, #00d9f5);
+    color: black;
+    border-radius: 12px;
     height: 50px;
-    width: 100%;
     font-size: 16px;
     border: none;
+    font-weight: bold;
 }
 
 .stButton>button:hover {
-    background-color: #4F46E5;
+    transform: scale(1.05);
+    transition: 0.2s;
 }
+
+/* Selectbox y inputs */
+.stSelectbox, .stTextInput {
+    background-color: white;
+    border-radius: 10px;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
 # ------------------ HEADER ------------------
-st.markdown('<p class="main-title">🎤 Traductor de Voz</p>', unsafe_allow_html=True)
-st.markdown('<p class="subtitle">Habla y traduce en tiempo real</p>', unsafe_allow_html=True)
+st.markdown('<p class="main-title">🎤 TRADUCTOR PRO</p>', unsafe_allow_html=True)
+st.markdown('<p class="subtitle">Habla y traduce en tiempo real 🚀</p>', unsafe_allow_html=True)
 
 # ------------------ IMAGEN ------------------
 image = Image.open('OIG7.jpg')
-st.image(image, width=250)
+st.image(image, width=220)
 
 # ------------------ SIDEBAR ------------------
 with st.sidebar:
-    st.subheader("ℹ️ Instrucciones")
+    st.subheader("📌 Cómo usar")
     st.write("""
-    1. Presiona el botón 🎤  
-    2. Habla claramente  
-    3. Selecciona idiomas  
-    4. Obtén traducción y audio  
+    1. Presiona 🎤  
+    2. Habla  
+    3. Elige idiomas  
+    4. Traduce y escucha  
     """)
 
-# ------------------ CONTENEDOR PRINCIPAL ------------------
+# ------------------ CARD PRINCIPAL ------------------
 st.markdown('<div class="card">', unsafe_allow_html=True)
 
-st.write("🎧 Presiona el botón y habla lo que quieres traducir")
+st.write("🎧 Presiona el botón y habla")
 
-stt_button = Button(label="🎤 Escuchar", width=300, height=50)
+stt_button = Button(label="🎤 ESCUCHAR AHORA", width=300, height=50)
 
 stt_button.js_on_event("button_click", CustomJS(code="""
     var recognition = new webkitSpeechRecognition();
@@ -201,16 +218,16 @@ if result:
 
     display_output_text = st.checkbox("Mostrar texto traducido")
 
-    if st.button("🔊 Convertir a audio"):
+    if st.button("🔊 TRADUCIR Y ESCUCHAR"):
         result, output_text = text_to_speech(input_language, output_language, text, tld)
         audio_file = open(f"temp/{result}.mp3", "rb")
         audio_bytes = audio_file.read()
 
-        st.markdown("### 🎧 Audio generado:")
+        st.markdown("### 🎧 Audio:")
         st.audio(audio_bytes, format="audio/mp3")
 
         if display_output_text:
-            st.markdown("### 📄 Texto traducido:")
+            st.markdown("### 📄 Texto:")
             st.write(output_text)
 
     def remove_files(n):
