@@ -17,7 +17,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# ------------------ ESTILOS PRO ------------------
+# ------------------ ESTILOS ------------------
 st.markdown("""
 <style>
 
@@ -67,8 +67,8 @@ st.markdown("""
     transition: 0.2s;
 }
 
-/* Selectbox y inputs */
-.stSelectbox, .stTextInput {
+/* Selectbox */
+.stSelectbox {
     background-color: white;
     border-radius: 10px;
 }
@@ -97,8 +97,14 @@ with st.sidebar:
 # ------------------ CARD PRINCIPAL ------------------
 st.markdown('<div class="card">', unsafe_allow_html=True)
 
-st.write("🎧 Presiona el botón y habla")
+# ✅ TEXTO AHORA DENTRO DEL RECTÁNGULO
+st.markdown("""
+<div style="text-align:center; font-size:20px; font-weight:600; margin-bottom:15px;">
+🎧 Presiona el botón y habla
+</div>
+""", unsafe_allow_html=True)
 
+# BOTÓN
 stt_button = Button(label="🎤 ESCUCHAR AHORA", width=300, height=50)
 
 stt_button.js_on_event("button_click", CustomJS(code="""
